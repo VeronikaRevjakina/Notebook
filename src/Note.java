@@ -4,55 +4,56 @@ public class Note {
     private String title;
     private String context;
 
-    Note(){
-        id=0;
-        title="";
-        context="";
+    public Note(){
+        this(0, "", "");
     };
 
-    Note(int id,String title,String context){
+    public Note(int id,String title,String context){
         this.id=id;
         this.title=title;
         this.context=context;
     }
 
-    public int getNoteId(Note note){
-        return note.id;
+    public int getNoteId(){
+        return this.id;
     }
 
-    public String getNoteTitle(Note note){
-        return note.title;
+    public String getNoteTitle(){
+        return this.title;
     }
 
-    public String getNoteContext(Note note){
-        return note.context;
+    public String getNoteContext(){
+        return this.context;
     }
 
     public  Note changeFullNote(int id,String title,String context){
         this.id=id;
         this.title=title;
         this.context=context;
-        System.out.println( this.toString());
+        System.out.println( this);
         return this;
     }
 
-    public Note setNoteId(int id){
+    public void setNoteId(int id){
         this.id=id;
-        return this;
+
     }
 
-    public Note setNoteTitle(String title){
+    public void setNoteTitle(String title){
         this.title=title;
-        return this;
+
     }
 
-    public  Note setNoteContext(String context){
+    public  void setNoteContext(String context){
         this.context=context;
-        return this;
+
     }
 
     @Override
     public String toString(){
-        return "id: "+id+" title: "+title+" context: "+context;
+
+        //return "id: "+id+" title: "+title+" context: "+context;
+        return new StringBuilder().append("id ").append(id).append(" title: ").append(title).append(" context: ")
+                .append(context).toString();
     }
 }
