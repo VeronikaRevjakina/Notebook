@@ -1,6 +1,6 @@
 public class Notebook {
 
-    public static final int INITIAL_SIZE=10;
+    public static final int INITIAL_SIZE=2;
     private Note[] notes;
     private int last;
 
@@ -17,21 +17,15 @@ public class Notebook {
     }
 
     public void addNote(Note note) {
-        if (last !=notes.length) {
-            this.notes[last]=note;
-            last++;
-        } else {
-            Note[] tempNotes = new Note[INITIAL_SIZE*2];
-            /*for (int i = 0; i < last; i++) {
-                tempNotes[i] = this.notes[i];
-            }*/
-            tempNotes=this.helpArrayCopyMethod(tempNotes);
-            tempNotes[last] = note;
-            last++;
+        if (last ==notes.length) {
+            Note[] tempNotes = new Note[INITIAL_SIZE * 2];
+            tempNotes = this.helpArrayCopyMethod(tempNotes);
             this.notes = tempNotes;
-
         }
+        this.notes[last] = note;
+        last++;
     }
+
 
     public void deleteLastNote() {
         if (notes.length/INITIAL_SIZE !=(last-1)) {
@@ -42,21 +36,8 @@ public class Notebook {
         else {
             last--;
             Note[] tempNotes = new Note[this.notes.length/2];
-            /*for (int i = 0; i < last; i++) {
-                tempNotes[i] = this.notes[i];
-
-            }*/
             this.notes = this.helpArrayCopyMethod(tempNotes);
         }
-    }
-
-    private Note[] helpArrayCopyMethod(Note[] tempNotes){
-       /*for (int i = 0; i < last; i++) {
-                tempNotes[i] = this.notes[i];
-            }*/
-
-        System.arraycopy (this.notes, 0, tempNotes, 0, last);
-        return tempNotes;
     }
 
     public Note getNoteById(int id){
@@ -73,5 +54,14 @@ public class Notebook {
         for(int i=0;i<last;i++){
             System.out.println( this.notes[i]);
         }
+    }
+
+    private Note[] helpArrayCopyMethod(Note[] tempNotes){
+       /*for (int i = 0; i < last; i++) {
+                tempNotes[i] = this.notes[i];
+            }*/
+
+        System.arraycopy (this.notes, 0, tempNotes, 0, last);
+        return tempNotes;
     }
 }
