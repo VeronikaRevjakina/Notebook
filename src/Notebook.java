@@ -1,6 +1,6 @@
 public class Notebook {
 
-    public static final int INITIAL_SIZE=100;
+    public static final int INITIAL_SIZE=10;
     private Note[] notes;
     private int last;
 
@@ -22,17 +22,18 @@ public class Notebook {
             last++;
         } else {
             Note[] tempNotes = new Note[INITIAL_SIZE*2];
-            for (int i = 0; i < last; i++) {
+            /*for (int i = 0; i < last; i++) {
                 tempNotes[i] = this.notes[i];
-            }
+            }*/
+            tempNotes=this.helpArrayCopyMethod(tempNotes);
             tempNotes[last] = note;
             last++;
             this.notes = tempNotes;
+
         }
     }
 
-
-    public void deleteNote() {
+    public void deleteLastNote() {
         if (notes.length/INITIAL_SIZE !=(last-1)) {
             last--;
             this.notes[last] = null;
@@ -41,12 +42,21 @@ public class Notebook {
         else {
             last--;
             Note[] tempNotes = new Note[this.notes.length/2];
-            for (int i = 0; i < last; i++) {
+            /*for (int i = 0; i < last; i++) {
                 tempNotes[i] = this.notes[i];
 
-            }
-            this.notes = tempNotes;
+            }*/
+            this.notes = this.helpArrayCopyMethod(tempNotes);
         }
+    }
+
+    private Note[] helpArrayCopyMethod(Note[] tempNotes){
+       /*for (int i = 0; i < last; i++) {
+                tempNotes[i] = this.notes[i];
+            }*/
+
+        System.arraycopy (this.notes, 0, tempNotes, 0, last);
+        return tempNotes;
     }
 
     public Note getNoteById(int id){
