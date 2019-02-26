@@ -1,28 +1,27 @@
 public class Notebook {
 
-    public static final int initialSize=2;
+    public static final int INITIAL_SIZE=100;
     private Note[] notes;
     private int last;
 
-    Notebook(){
-        this.notes=new Note[initialSize];
+    public Notebook(){
+        this.notes=new Note[INITIAL_SIZE];
         last=0;
     }
 
-    Notebook(Note[] notesIn){
+    public Notebook(Note[] notesIn){
         this();
-        for(Note i:notesIn){
-            this.addNote(i);
+        for(Note note:notesIn){
+            this.addNote(note);
         }
     }
 
-    void addNote(Note note) {
+    public void addNote(Note note) {
         if (last !=notes.length) {
             this.notes[last]=note;
             last++;
-        }
-        else {
-            Note[] tempNotes = new Note[initialSize*2];
+        } else {
+            Note[] tempNotes = new Note[INITIAL_SIZE*2];
             for (int i = 0; i < last; i++) {
                 tempNotes[i] = this.notes[i];
             }
@@ -33,8 +32,8 @@ public class Notebook {
     }
 
 
-    void deleteNote() {
-        if (notes.length/initialSize !=(last-1)) {
+    public void deleteNote() {
+        if (notes.length/INITIAL_SIZE !=(last-1)) {
             last--;
             this.notes[last] = null;
 
@@ -50,21 +49,19 @@ public class Notebook {
         }
     }
 
-    Note getNoteByCount(int count){
-        if(count <= last) {
-            System.out.println( this.notes[count].toString());
-            return this.notes[count];
+    public Note getNoteById(int id){
+            if (id >= 0 && id <= last) {
+                System.out.println(this.notes[id]);
+                return this.notes[id];
+            }
+            else{
+                throw new IndexOutOfBoundsException("Note with this index does not exist,change index");
         }
-        System.out.println( new Note().toString());
-        return new Note();
     }
 
-    void showAllNotes(){
-        for(int i=0;i<this.notes.length;i++){
-            if(this.notes[i] ==null){
-                break;
-            }
-            System.out.println( this.notes[i].toString());
+    public void showAllNotes(){
+        for(int i=0;i<last;i++){
+            System.out.println( this.notes[i]);
         }
     }
 }
