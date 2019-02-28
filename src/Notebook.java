@@ -41,17 +41,18 @@ public class Notebook {
     }
 
     public void deleteNoteById(int id) {
-        this.getNoteById(id);
+        this.getNoteById(id); //check if this note exist
         Note[] tempNotes = new Note[this.notes.length-1];
         System.arraycopy (this.notes, 0, tempNotes, 0, id);
-        System.arraycopy (this.notes, id+1, tempNotes, id+1, notes.length-1);
+        System.arraycopy (this.notes, id+1, tempNotes, id, notes.length-id-1);
+        last--;
         this.notes = tempNotes;
 
     }
 
     public Note getNoteById(int id){
             if (id >= 0 && id <= last) {
-                System.out.println(this.notes[id]);
+               // System.out.println(this.notes[id]);
                 return this.notes[id];
             }
             else{
