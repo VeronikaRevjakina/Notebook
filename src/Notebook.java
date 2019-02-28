@@ -40,6 +40,15 @@ public class Notebook {
         }
     }
 
+    public void deleteNoteById(int id) {
+        this.getNoteById(id);
+        Note[] tempNotes = new Note[this.notes.length-1];
+        System.arraycopy (this.notes, 0, tempNotes, 0, id);
+        System.arraycopy (this.notes, id+1, tempNotes, id+1, notes.length-1);
+        this.notes = tempNotes;
+
+    }
+
     public Note getNoteById(int id){
             if (id >= 0 && id <= last) {
                 System.out.println(this.notes[id]);
@@ -64,4 +73,5 @@ public class Notebook {
         System.arraycopy (this.notes, 0, tempNotes, 0, last);
         return tempNotes;
     }
+
 }
