@@ -16,9 +16,17 @@ public class Notebook {
         }
     }
 
+    public int getLast(){
+        return this.last;
+    }
+
+    public Note[] getNotes(){
+        return this.notes;
+    }
+
     public void addNote(Note note) {
         if (last ==notes.length) {
-            Note[] tempNotes = new Note[INITIAL_SIZE * 2];
+            Note[] tempNotes = new Note[notes.length * 2];
             this.notes = this.helpArrayCopyMethod(tempNotes);;
         }
         this.notes[last] = note;
@@ -27,24 +35,32 @@ public class Notebook {
 
 
     public void deleteLastNote() {
-        last--;
-        if (notes.length/INITIAL_SIZE !=(last-1)) {
-            this.notes[last] = null;
+        if (last >= 0) {
+            last--;
+            if (notes.length / INITIAL_SIZE != last ) {
+                this.notes[last] = null;
 
+            } else {
+                Note[] tempNotes = new Note[this.notes.length / 2];
+                this.notes = helpArrayCopyMethod(tempNotes);
+            }
         }
-        else {
-            Note[] tempNotes = new Note[this.notes.length/2];
-            this.notes = this.helpArrayCopyMethod(tempNotes);
+        else{
+            throw new IndexOutOfBoundsException("Notebook is empty");
         }
     }
 
     public void deleteNoteById(int id) {
-        if (this.checkNoteExistsById(id) == true) {
+        if (this.checkNoteExistsById(id)) {
             Note[] tempNotes = new Note[this.notes.length - 1];
             System.arraycopy(this.notes, 0, tempNotes, 0, id);
             System.arraycopy(this.notes, id + 1, tempNotes, id, notes.length - id - 1);
             last--;
             this.notes = tempNotes;
+            if (this.notes.length/INITIAL_SIZE ==(last) ){
+                Note[] temporaryNotes = new Note[this.notes.length/2];
+                this.notes = this.helpArrayCopyMethod(temporaryNotes);
+            }
 
         }
     }
@@ -65,13 +81,13 @@ public class Notebook {
         }
     }
 
-    private Note[] helpArrayCopyMethod(Note[] tempNotes){
-       /*for (int i = 0; i < last; i++) {
-                tempNotes[i] = this.notes[i];
-            }*/
+    private Note[] helpArrayCopyMethod(Note[] temporNotes){
+       for (int i = 0; i < last; i++) {
+                temporNotes[i] = this.notes[i];
+            }
 
-        System.arraycopy (this.notes, 0, tempNotes, 0, last);
-        return tempNotes;
+        /*System.arraycopy (this.notes, 0, tempNotes, 0, last);*/
+        return temporNotes;
     }
 
     private boolean checkNoteExistsById(int id){

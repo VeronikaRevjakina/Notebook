@@ -26,12 +26,16 @@ public class Note {
         return this.context;
     }
 
-    public  Note changeFullNote(int id,String title,String context){
-        this.id=id;
-        this.title=title;
-        this.context=context;
-        System.out.println( this);
-        return this;
+    public  Note changeFullNote(int id,String title,String context) {
+        if (id >= 0) {
+            this.id = id;
+            this.title = title;
+            this.context = context;
+            System.out.println(this);
+            return this;
+        } else {
+            throw new IndexOutOfBoundsException("Note index should be positive, change index value");
+        }
     }
 
     public void setNoteId(int id){
