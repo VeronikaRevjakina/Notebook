@@ -19,8 +19,7 @@ public class Notebook {
     public void addNote(Note note) {
         if (last ==notes.length) {
             Note[] tempNotes = new Note[INITIAL_SIZE * 2];
-            tempNotes = this.helpArrayCopyMethod(tempNotes);
-            this.notes = tempNotes;
+            this.notes = this.helpArrayCopyMethod(tempNotes);;
         }
         this.notes[last] = note;
         last++;
@@ -28,31 +27,31 @@ public class Notebook {
 
 
     public void deleteLastNote() {
+        last--;
         if (notes.length/INITIAL_SIZE !=(last-1)) {
-            last--;
             this.notes[last] = null;
 
         }
         else {
-            last--;
             Note[] tempNotes = new Note[this.notes.length/2];
             this.notes = this.helpArrayCopyMethod(tempNotes);
         }
     }
 
     public void deleteNoteById(int id) {
-        this.getNoteById(id); //check if this note exist
-        Note[] tempNotes = new Note[this.notes.length-1];
-        System.arraycopy (this.notes, 0, tempNotes, 0, id);
-        System.arraycopy (this.notes, id+1, tempNotes, id, notes.length-id-1);
-        last--;
-        this.notes = tempNotes;
+        if (this.checkNoteExistsById(id) == true) {
+            Note[] tempNotes = new Note[this.notes.length - 1];
+            System.arraycopy(this.notes, 0, tempNotes, 0, id);
+            System.arraycopy(this.notes, id + 1, tempNotes, id, notes.length - id - 1);
+            last--;
+            this.notes = tempNotes;
 
+        }
     }
 
     public Note getNoteById(int id){
             if (id >= 0 && id <= last) {
-               // System.out.println(this.notes[id]);
+                System.out.println(this.notes[id]);
                 return this.notes[id];
             }
             else{
@@ -73,6 +72,15 @@ public class Notebook {
 
         System.arraycopy (this.notes, 0, tempNotes, 0, last);
         return tempNotes;
+    }
+
+    private boolean checkNoteExistsById(int id){
+        if (id >= 0 && id <= last) {
+           return true;
+        }
+        else{
+            throw new IndexOutOfBoundsException("Note with this index does not exist,change index");
+        }
     }
 
 }
